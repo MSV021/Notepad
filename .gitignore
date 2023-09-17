@@ -1,5 +1,5 @@
- #VSCode
- .vscode
+# vscode
+.vscode
 
 # C++ objects and libs
 *.slo
