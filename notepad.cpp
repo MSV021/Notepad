@@ -95,29 +95,6 @@ void Notepad::saveAs() {
     file.close();
 }
 
-bool Notepad::isTextModified() {
-    if(currentFile.isEmpty() && ui->textEdit->toPlainText().isEmpty()) 
-        return false;
-    else if(!currentFile.isEmpty())  {
-        QFile file(currentFile);
-        if(!file.open(QIODevice::ReadOnly | QFile::Text)) {
-            QMessageBox::warning(this, "Warning", "Can't open file: " + file.errorString()); 
-            return false; 
-        } 
-
-        QTextStream in(&file);
-        QString text = in.readAll(); 
-        if(ui->textEdit->toPlainText() == text) 
-            return false;
-    }
-
-    return true;
-}
-
-QMessageBox::StandardButton Notepad::closePrompt() {
-    return QMessageBox::question(this, "Close Document", "Do you want to save your changes?", QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
-}
-
 void Notepad::close() {
     if(!isTextModified()) 
         exit(0);
@@ -146,6 +123,52 @@ void Notepad::closeEvent(QCloseEvent* event) {
         save(); 
     
     event->accept();
+}
+
+void Notepad::keyPressEvent(QKeyEvent* event) {
+    if(event->modifiers() & Qt::ControlModifier) {
+        switch(event->key()) {
+        case Qt::Key_N: 
+            newDocument(); 
+            break; 
+        case Qt::Key_S: 
+            if(event->modifiers() & Qt::ShiftModifier) 
+                saveAs(); 
+            else 
+                save(); 
+            break; 
+        case Qt::Key_O: 
+            open(); 
+            break;
+        case Qt::Key_W: 
+            close(); 
+            break;
+        }
+
+    }
+}
+
+bool Notepad::isTextModified() {
+    if(currentFile.isEmpty() && ui->textEdit->toPlainText().isEmpty()) 
+        return false;
+    else if(!currentFile.isEmpty())  {
+        QFile file(currentFile);
+        if(!file.open(QIODevice::ReadOnly | QFile::Text)) {
+            QMessageBox::warning(this, "Warning", "Can't open file: " + file.errorString()); 
+            return false; 
+        } 
+
+        QTextStream in(&file);
+        QString text = in.readAll(); 
+        if(ui->textEdit->toPlainText() == text) 
+            return false;
+    }
+
+    return true;
+}
+
+QMessageBox::StandardButton Notepad::closePrompt() {
+    return QMessageBox::question(this, "Close Document", "Do you want to save your changes?", QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
 }
 
 

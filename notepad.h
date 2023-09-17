@@ -21,10 +21,12 @@ private slots:
     void save();
     void saveAs();
     void close();
+protected: 
+    void closeEvent(QCloseEvent*);
+    void keyPressEvent(QKeyEvent*);
 private:
     bool isTextModified(); 
     QMessageBox::StandardButton closePrompt();
-    void closeEvent(QCloseEvent*);
 
     Ui::Notepad *ui;
     QString currentFile;
