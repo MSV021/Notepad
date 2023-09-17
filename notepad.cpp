@@ -16,6 +16,11 @@ Notepad::Notepad(QWidget *parent)
     connect(ui->actionSave, &QAction::triggered, this, &Notepad::save);
     connect(ui->actionSaveAs, &QAction::triggered, this, &Notepad::saveAs);
     connect(ui->actionClose, &QAction::triggered, this, &Notepad::close);
+    connect(ui->actionUndo, &QAction::triggered, ui->textEdit, &QTextEdit::undo);
+    connect(ui->actionRedo, &QAction::triggered, ui->textEdit, &QTextEdit::redo);
+    connect(ui->actionCut, &QAction::triggered, ui->textEdit, &QTextEdit::cut);
+    connect(ui->actionCopy, &QAction::triggered, ui->textEdit, &QTextEdit::copy);
+    connect(ui->actionPaste, &QAction::triggered, ui->textEdit, &QTextEdit::paste);
 }
 
 Notepad::~Notepad()
