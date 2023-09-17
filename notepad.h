@@ -23,7 +23,6 @@ private slots:
     void close();
 protected: 
     void closeEvent(QCloseEvent*);
-    void keyPressEvent(QKeyEvent*);
 private:
     bool isTextModified(); 
     QMessageBox::StandardButton closePrompt();

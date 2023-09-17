@@ -130,29 +130,6 @@ void Notepad::closeEvent(QCloseEvent* event) {
     event->accept();
 }
 
-void Notepad::keyPressEvent(QKeyEvent* event) {
-    if(event->modifiers() & Qt::ControlModifier) {
-        switch(event->key()) {
-        case Qt::Key_N: 
-            newDocument(); 
-            break; 
-        case Qt::Key_S: 
-            if(event->modifiers() & Qt::ShiftModifier) 
-                saveAs(); 
-            else 
-                save(); 
-            break; 
-        case Qt::Key_O: 
-            open(); 
-            break;
-        case Qt::Key_W: 
-            close(); 
-            break;
-        }
-
-    }
-}
-
 bool Notepad::isTextModified() {
     if(currentFile.isEmpty() && ui->textEdit->toPlainText().isEmpty()) 
         return false;
